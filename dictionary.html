@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dictionary App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+    input, button {
+      padding: 10px;
+      margin: 5px 0;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Dictionary Lookup</h2>
+  <input type="text" id="wordInput" placeholder="Enter a word" />
+  <button onclick="lookup()">Search</button>
+  <p id="result"></p>
+
+  <script>
+    async function lookup() {
+      const word = document.getElementById('wordInput').value;
+      const res = await fetch(`http://localhost:8080/dictionary/${word}`);
+      if (res.ok) {
+        const meaning = await res.text();
+        document.getElementById('result').innerText = `Meaning: ${meaning}`;
+      } else {
+        document.getElementById('result').innerText = 'Word not found!';
+      }
+    }
+  </script>
+</body>
+</html>
